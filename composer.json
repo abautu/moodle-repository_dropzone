@@ -1,0 +1,20 @@
+{
+    "name": "abautu/repository_dropzone",
+    "description": "Upload files to Moodle (using dropzone.js)",
+    "type": "moodle-repository",
+    "version": "2024030100",
+    "require": {
+        "composer/installers": "~1.0",
+        "moodle/moodle": "v4.*"
+    },
+    "extra": {
+        "installer-name": "dropzone"
+    },
+    "license": "GNU GPL v3 or later",
+    "authors": [
+        {
+            "name": "Andrei Bautu",
+            "email": "abautu@gmail.com"
+        }
+    ]
+}
