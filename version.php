@@ -26,9 +26,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2024030100;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2022041900;        // Requires this Moodle version.
-$plugin->component = 'repository_dropzone'; // Full name of the plugin (used for diagnostics)
+$plugin->component = 'repository_dropzone';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->version   = 2024030100;
+$plugin->release   = $plugin->version;
+$plugin->requires  = 2022041900;
 $plugin->dependencies = [
     'repository_upload' => 2022041900,
 ];
