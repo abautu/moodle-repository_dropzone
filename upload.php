@@ -1,13 +1,13 @@
 <?php
 // Define the moodle required includes
-require_once('/var/www/html/config.php');
+require_once('../../config.php');
 require_once($CFG->libdir.'/filelib.php');
 require_once($CFG->dirroot.'/repository/dropzone/lib.php');
 
 // Check if an actual user is logged in (i.e. not guest)
 require_login();
 
-$max_file_size = 10*1024*1024*1024; // 10GB 
+$max_file_size = 10*1024*1024*1024; // 10GB
 $chunk_size = min(get_max_upload_file_size()/2, 5*1024*1024); // max 5MB chunk size
 
 $fallback_upload_uuid = NULL;
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['dzchunkbyteoffset'] + $_FILES['file']['size'] > $max_file_size) {
             throw new Exception('File size exceeds maximum allowed');
         }
-        
+
         // Save the chunk in the temporary file
         $filename = repository_dropzone::get_temporary_filename($_POST['dzuuid']);
         // Create the directory if it doesn't exist
