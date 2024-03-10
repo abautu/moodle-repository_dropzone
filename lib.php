@@ -58,12 +58,12 @@ class repository_dropzone extends repository_upload {
      * ('<input  type="file"/>' the two spaces is not a typo here).
      */
     public function get_upload_template() {
-        global $OUTPUT;jQuery('#fileupload').parents('body')[0].scrollHeight
+        global $OUTPUT;
         $form = $OUTPUT->render_from_template('core/filemanager_uploadform', []);
         $upload_frame_url = (new moodle_url('/repository/dropzone/upload.php'))->out_as_local_url();
         $form = preg_replace(
             '!<input[^>]* type="file"[^>]*>!',
-            '<input type="hidden"/><iframe src="' . $upload_frame_url . '" frameborder="0" scrolling="no" style="width:100%"></iframe>',
+            '<input type="hidden"/><iframe src="' . $upload_frame_url . '" frameborder="0" scrolling="no" id="dropzone-iframe" style="width:100%"></iframe>',
             $form);
         return $form;
     }
