@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'repository_dropzone';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->version   = 2024030100;
+$plugin->version   = 2024031000;
 $plugin->release   = $plugin->version;
 $plugin->requires  = 2022041900;
 $plugin->dependencies = [
