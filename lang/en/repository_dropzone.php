@@ -18,9 +18,10 @@
 /**
  * Strings for component 'repository_dropzone', language 'en'
  *
- * @package   repository_dropzone
- * @copyright 2024 onwards Andrei Bautu  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    repository_dropzone
+ * @copyright  2024 Andrei Bautu <abautu@gmail.com>
+ * @author     Andrei Bautu <abautu@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['configplugin'] = 'Configuration for dropzone plugin';

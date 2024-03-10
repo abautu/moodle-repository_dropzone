@@ -15,11 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This plugin is used to dropzone files
+ * This plugin is used to upload files using dropzone.js
  *
- * @since Moodle 2.0
+ * It works even with very large files, by splitting them into chunks
+ * and uploading them one by one.
+ *
  * @package    repository_dropzone
  * @copyright  2024 Andrei Bautu <abautu@gmail.com>
+ * @author     Andrei Bautu <abautu@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,27 +31,26 @@ require_once($CFG->dirroot . '/repository/lib.php');
 require_once($CFG->dirroot . '/repository/upload/lib.php');
 
 /**
- * A repository plugin to allow user uploading files
+ * A repository plugin to allow user uploading files using dropzone.js.
  *
- * @since Moodle 2.0
  * @package    repository_dropzone
- * @copyright  2024 Andrei Bautu <abautu@gmail.com> {@link http://dongsheng.org}
+ * @copyright  2024 Andrei Bautu <abautu@gmail.com>
+ * @author     Andrei Bautu <abautu@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class repository_dropzone extends repository_upload {
-   
+
     public function get_upload_template() {
         global $OUTPUT;
         $form = $OUTPUT->render_from_template('core/filemanager_uploadform', []);
         $upload_frame_url = (new moodle_url('/repository/dropzone/upload.php'))->out_as_local_url();
         $form = preg_replace(
-            '!<input +type="file"/>!', 
-            '<input type="hidden"/><iframe src="' . $upload_frame_url . '" frameborder="0" scrolling="no" style="width:100%"></iframe>', 
+            '!<input +type="file"/>!',
+            '<input type="hidden"/><iframe src="' . $upload_frame_url . '" frameborder="0" scrolling="no" style="width:100%"></iframe>',
             $form);
         return $form;
     }
-    
+
     public static function get_temporary_filename($uuid) {
         global $CFG, $USER;
         // Check if the chunk upload ID is valid
@@ -57,11 +59,11 @@ class repository_dropzone extends repository_upload {
         }
         return $CFG->tempdir . '/dropzone/' . $USER->id . '/' . $uuid;
     }
-    
+
     public static function get_form_element_name() {
         return 'repo_upload_file'; // hardcoded in filepicker.js and repository_upload
     }
-    
+
     /**
      * Process uploaded file
      * @return array|bool

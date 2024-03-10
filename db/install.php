@@ -15,6 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Plugin installation hook
+ *
+ * @package    repository_dropzone
+ * @copyright  2024 Andrei Bautu <abautu@gmail.com>
+ * @author     Andrei Bautu <abautu@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 function xmldb_repository_dropzone_install() {
     global $CFG;
     $result = true;
