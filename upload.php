@@ -16,6 +16,9 @@ $fallback_upload_message = NULL;
 // If the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
+        // get the chunk file parameters
+        $dzuuid = required_param('dzuuid', PARAM_ALPHANUMEXT);
+        $dzchunkbyteoffset = required_param('dzchunkbyteoffset', PARAM_INT);
         // Check if a file was uploaded
         if (empty($_FILES['file'])) {
             throw new moodle_exception('nofile');
@@ -43,26 +46,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Check if the chunk location is valid
-        if ($_POST['dzchunkbyteoffset'] < 0 ||
-            $_POST['dzchunkbyteoffset'] + $_FILES['file']['size'] > $max_file_size) {
+        if ($dzchunkbyteoffset < 0 ||
+            $dzchunkbyteoffset + $_FILES['file']['size'] > $max_file_size) {
             throw new Exception('File size exceeds maximum allowed');
         }
 
         // Save the chunk in the temporary file
-        $filename = repository_dropzone::get_temporary_filename($_POST['dzuuid']);
+        $filename = repository_dropzone::get_temporary_filename($dzuuid);
         // Create the directory if it doesn't exist
         @mkdir(dirname($filename), 0700, true);
         if (!$file = fopen($filename, 'cb')) {
             throw new Exception('Failed to open file for writing');
         }
-        // Write the chunk to the file
-        fseek($file, $_POST['dzchunkbyteoffset']);
+
+        // Write the chunk to the file at its proper position
+        fseek($file, $dzchunkbyteoffset);
         fwrite($file, file_get_contents($_FILES['file']['tmp_name']));
         // Close the file
         fclose($file);
+
+        // Save the original filename in a separate file (we will need it later
+        // when the file picker sends the upload metadata to the server)
         file_put_contents($filename . '.txt', $_FILES['file']['name']);
+
+        // provide the information for the form
         $fallback_upload_message = get_string('uploadedfile');
-        $fallback_upload_uuid = $_POST['dzuuid'];
+        $fallback_upload_uuid = $dzuuid;
     } catch (Exception $e) {
         header('HTTP/1.0 Bad Request', true, 400);
         echo $e->getMessage();
