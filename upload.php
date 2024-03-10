@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Save the chunk in the temporary file
         $filename = repository_dropzone::get_temporary_filename($dzuuid);
         // Create the directory if it doesn't exist
-        @mkdir(dirname($filename), 0700, true);
+        @mkdir(dirname($filename), $CFG->directorypermissions, true);
         if (!$file = fopen($filename, 'cb')) {
             throw new Exception('Failed to open file for writing');
         }
