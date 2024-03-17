@@ -60,7 +60,7 @@ class repository_dropzone extends repository_upload {
     public function get_upload_template() {
         global $OUTPUT;
         $form = $OUTPUT->render_from_template('core/filemanager_uploadform', []);
-        $upload_frame_url = (new moodle_url('/repository/dropzone/upload.php'))->out_as_local_url();
+        $upload_frame_url = (new moodle_url('/repository/dropzone/upload.php'))->out();
         $form = preg_replace(
             '!<input[^>]* type="file"[^>]*>!',
             '<input type="hidden"/><iframe src="' . $upload_frame_url . '" frameborder="0" scrolling="no" id="dropzone-iframe" style="width:100%"></iframe>',
