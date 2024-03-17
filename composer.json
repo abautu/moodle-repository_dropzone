@@ -2,7 +2,7 @@
     "name": "abautu/repository_dropzone",
     "description": "Upload files to Moodle (using dropzone.js)",
     "type": "moodle-repository",
-    "version": "2024031000",
+    "version": "2024031700",
     "require": {
         "composer/installers": "~1.0",
         "moodle/moodle": "v4.*"
